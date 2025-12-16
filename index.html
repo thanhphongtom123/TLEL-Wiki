@@ -9,14 +9,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script> 
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-cpp.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css">
 
   </ul>
 </nav>
 
   <style>
+    .hl-kw   { color: #569cd6; }
+    .hl-type { color: #4ec9b0; }
+    .hl-str  { color: #ce9178; }  
+    .hl-num  { color: #b5cea8; }
+    .hl-com  { color: #6a9955; font-style: italic; }
     * {
       margin: 0;
       padding: 0;
@@ -319,12 +321,53 @@ function copyCode(btn) {
   btn.innerText = "Copied!";
   setTimeout(() => btn.innerText = "Copy", 1000);
 }
+function syntaxHighlight() {
+  document.querySelectorAll("pre code").forEach(block => {
+    let html = block.innerText;
 
+    // escape HTML
+    html = html
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+
+    // comment //
+    html = html.replace(/(\/\/.*?$)/gm,
+      '<span class="hl-com">$1</span>');
+
+    // string
+    html = html.replace(/(".*?"|'.*?')/g,
+      '<span class="hl-str">$1</span>');
+
+    // number
+    html = html.replace(/\b(\d+)\b/g,
+      '<span class="hl-num">$1</span>');
+
+    // keyword
+    const kw = "if|else|for|while|return|using|namespace|include";
+    html = html.replace(
+      new RegExp("\\b(" + kw + ")\\b", "g"),
+      '<span class="hl-kw">$1</span>'
+    );
+
+    // type
+    const types = "int|long|float|double|char|void|bool|string|vector|map|set";
+    html = html.replace(
+      new RegExp("\\b(" + types + ")\\b", "g"),
+      '<span class="hl-type">$1</span>'
+    );
+
+    block.innerHTML = html;
+  });
+}
+
+document.addEventListener("DOMContentLoaded", syntaxHighlight);
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>
+
 
 
 
