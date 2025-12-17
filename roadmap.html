@@ -99,7 +99,6 @@
     /* ===== MAIN LAYOUT ===== */
     .container {
       display: flex;
-
       max-width: 1200px;
       margin: 20px auto;
       gap: 16px;
@@ -120,13 +119,13 @@
       border: none;
     }
 
-    /* SIDEBAR - MỤC LỤC */
+    /* SIDEBAR */
     .sidebar {
       flex: 0 0 20%;
       background: #ffffff;
-    padding: 14px;
+      padding: 14px;
       border-radius: 8px;
-    position: sticky;
+      position: sticky;
       top: 20px;
       height: fit-content;
     }
@@ -166,12 +165,9 @@
         height: 500px;
       }
     }
-    .chuw {
-      padding-bottom: 1px;
-    }
-    .chuw1 {
-      padding-top: 1px !important;
-    }
+
+    .chuw { padding-bottom: 1px; }
+    .chuw1 { padding-top: 1px !important; }
   </style>
 </head>
 
@@ -210,25 +206,33 @@
 <!-- MAIN -->
 <div class="container">
 
-  <!-- PDF -->
+  <!-- CONTENT -->
   <div class="content">
-    <iframe src="ITCOBAN.pdf#zoom=100"></iframe>
+    <!-- mặc định load bài đầu -->
+    <iframe id="viewer" src="assets/ITCOBAN.pdf#zoom=100"></iframe>
   </div>
 
-  <!-- MỤC LỤC -->
+  <!-- SIDEBAR -->
   <aside class="sidebar">
     <h3>Mục lục</h3>
     <ul>
-      <li> Giới thiệu</li>
-      <li> Kiểu dữ liệu</li>
-      <li> Cấu trúc rẽ nhánh</li>
-      <li> Vòng lặp</li>
-      <li> Mảng & Chuỗi</li>
-      <li> Hàm</li>
+      <li onclick="loadPost('ITCOBAN.pdf')">Giới thiệu</li>
+      <li onclick="loadPost('#')">Kiểu dữ liệu</li>
+      <li onclick="loadPost('#')">Cấu trúc rẽ nhánh</li>
+      <li onclick="loadPost('#')">Vòng lặp</li>
+      <li onclick="loadPost('#')">Mảng & Chuỗi</li>
+      <li onclick="loadPost('#')">Hàm</li>
     </ul>
   </aside>
 
 </div>
+
+<!-- JS -->
+<script>
+  function loadPost(file) {
+    document.getElementById("viewer").src = "assets/" + file + "#zoom=100";
+  }
+</script>
 
 </body>
 </html>
